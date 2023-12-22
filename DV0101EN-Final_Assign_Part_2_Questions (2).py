@@ -39,12 +39,8 @@ app.layout = html.Div([
         html.Label("Select Statistics:"),
         dcc.Dropdown(
             id='dropdown-statistics',
-            options=[
-    {'label': 'Yearly Statistics Report', 'value': 'Yearly Statistics'},
-    {'label': 'Recession Period Statistics', 'value': 'Recession Period Statistics'}
-],
+            options='dropdown_options,
             value='Select Statistics',
-            placeholder='Select a report type'
         )
     ]),
     html.Div(dcc.Dropdown(
@@ -71,7 +67,7 @@ def update_input_container(selected_statistics):
 # Define the callback function to update the input container based on the selected statistics
 @app.callback(
     Output(component_id='output-container', component_property='children'),
-    [Input(component_id='select-year', component_property='value'), Input(component_id='dropdown-statistics', component_property='value')])
+    [Input(component_id='dropdown-statistics', component_property='value'), Input(component_id='select-year', component_property='value')])
 
 
 def update_output_container(input_year, selected_statistics):
@@ -113,7 +109,9 @@ def update_output_container(input_year, selected_statistics):
             figure=px.bar(Unemployment_rate,
             x='Unemployment_Rate',
             y='Automobile_Sales',
-            title="effect of unemployment rate on vehicle type and sales"))
+            color='**********',
+            labels={'unemployment_rate': '*********', 'Automobile_Sales': '*******'},
+            title="Effect of Unemployment Rate on Vehicle Types and Sales"))
 
 
         return [
